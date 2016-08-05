@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-transform " />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/socket.io.js"></script>
+<title></title>
+</head>
+<body>
+	<div>
+		<h1 class="welcome">Welcome!</h1>
+		<div class="dialog-list" id="list">
+			<!-- me -->
+			<!-- <div class="dialog dialog-me">
+				<ul>
+					<li class="nickname">kiki</li>
+					<li class="dialog-details clearfix">
+						<i class="head-icon"></i>
+						<div class="text">
+							hello
+						</div>
+					</li>
+				</ul>
+			</div> -->
+			<!-- others -->
+			<!-- <div class="dialog dialog-other">
+				<ul>
+					<li class="nickname">kiki</li>
+					<li class="dialog-details clearfix">
+						<i class="head-icon"></i>
+						<div class="text">
+							hello
+						</div>
+					</li>
+				</ul>
+			</div> -->
+			<!-- notice -->
+		</div>
+	</div>
+	<div class="dialog-control">
+		<input type="text" name="keywords" class="ui-input keywords" id="keywords" placeholder="请输入">
+		<input type="button" name="send" class="ui-btn btn-send" id="btn-send" value="发送">
+	</div>
+
+<script type="text/javascript">
+	var socket = io.connect('http://10.88.91.156:3000');
+
+    var userInfo = {
+        username: (function () {
+            return prompt('请输入您的聊天室昵称', '');
+        })()
+    };
+
+    /* 连接完毕，发送一个jion事件，把自己的昵称告诉别人 */
+    socket.emit('join', {
+        username: userInfo.username
+    });
+
+    /* 用户进入聊天室 显示加入聊天室信息 */
+    socket.on('broadcast_join', function (data) {
+    	console.log(data);
+        if (data.username) {
+            console.log(data.username + '加入了聊天室');
+            var data = {
+                text: data.username + '加入了聊天室'
+            };
+            showNotice(data);
+        }
+    });
+
+
+    /* 用户离开聊天室 显示离开聊天室信息 */
+    socket.on('broadcast_quit',function(data){
+    	if(data.username) {
+    		console.log(data.username + '离开了聊天室');
+    		var data = {
+    			text: data.username + '离开了聊天室'
+    		};
+    		showNotice(data);
+    	}
+    });
+
+    function showNotice(data){
+    	var item = '<div class="notice"><span>'+ data.text+'</span></div>'
+    	document.getElementById('list').innerHTML += item;
+    };
+
+
+    /* 点击发送按钮 */
+    document.getElementById('btn-send').onclick = function(){
+    	var keywords = document.getElementById('keywords');
+    	if(keywords.value===''){
+    		keywords.focus();
+    		return false;
+    	}
+    	var data = {
+    		text:keywords.value,
+    		type:0,
+    		username:userInfo.username
+    	};
+    	socket.emit('say',data);
+    	showMessage(data);
+    	keywords.value = "";
+    	keywords.focus();
+    };
+
+    /* 收到别人发的消息的时候，显示消息 */
+   socket.on('broadcast_say',function(data) {
+    	console.log(data.username + '说：' + data.text);
+    	showMessage(data);
+    });
+
+    function showMessage(data) {
+    	var dialogArr = [];
+    	dialogArr.push('<div class="'+(data.type === 0 ? "dialog-me" : "dialog-other")+' dialog">');
+        dialogArr.push('<ul>');
+        dialogArr.push('<li class="dialog-details clearfix">');
+        dialogArr.push('<i class="head-icon"></i>');
+        dialogArr.push('<div class="text">'+ data.text + '</div>');
+        dialogArr.push('</li>');
+        dialogArr.push('</ul>');
+        dialogArr.push('</div>');
+
+        document.getElementById('list').innerHTML += dialogArr.join('');
+
+    }
+
+</script>
+</body>
+</html>

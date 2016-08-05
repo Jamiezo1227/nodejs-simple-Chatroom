@@ -1,0 +1,170 @@
+* {
+	margin:0;
+	padding:0;
+}
+body {
+	width: 100%;
+	min-width:320px;
+	color: #111;
+	font-size: 12px;
+	font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif,"微软雅黑","黑体";
+}
+ul,li,dl {
+	list-style: none;
+}
+input[type="text"], input[type="password"], input[type="number"], input[type="email"], input[type="search"], input[type="button"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* mobile firefox too! */
+  font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif,"微软雅黑","黑体";
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden; 
+}
+.clearfix {
+  display: block; 
+}
+input::-webkit-input-placeholder {
+  /* WebKit browsers */
+  font-size: 14px;
+  color: #b9bbc7; 
+}
+
+input:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  font-size: 14px;
+  color: #b9bbc7; 
+}
+
+input::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  font-size: 14px;
+  color: #b9bbc7; 
+}
+
+input:-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  font-size: 14px;
+  color: #b9bbc7; 
+}
+.ui-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 14px;
+  border: 1px solid #cccedb;
+  background-color: #fff;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+.ui-btn {
+  width: 100%;
+  height: 40px;
+  padding: 0 15px;
+  color: #fff;
+  font-size: 16px;
+  border:none;
+  background-color: #8CC63E;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box; 
+}
+h1.welcome {
+	height:42px;
+	line-height:42px;
+	font-size:21px;
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+}
+div.dialog-list {
+	padding-top:10px;
+}
+div.dialog-list div.dialog {
+	padding:10px 10px 5px;	
+}
+li.nickname {
+	display: none;
+	text-align: right;
+	color:#ccc;
+}
+div.dialog i.head-icon {
+	width: 20px;
+	height: 31px;
+	float: right;
+	margin:0 5px;
+	background:url(../images/icon/icon-01.png) no-repeat;
+	background-size:20px 31px;
+}
+div.dialog div.text {
+	position: relative;
+	float: right;
+	padding:5px;
+	max-width: 60%;
+	border-radius: 3px;
+	background-color: #8CC63E;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+div.dialog div.text:before {
+    position: absolute;
+    top: 10px;
+    width: 0;
+    height: 0;
+    content: '';
+	border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #8CC63E;
+}
+div.dialog-me div.text:before {
+	right: -4px;
+}
+div.dialog-other div.text {
+	float: left;
+}
+div.dialog-other i.head-icon {
+	float: left;
+	background:url(../images/icon/icon-02.png) no-repeat;
+	background-size:20px 31px;
+}
+div.dialog-other div.text:before {
+	left: -4px;
+	-webkit-transform:rotate(180deg);
+	-moz-transform:rotate(180deg);
+	transform:rotate(180deg);
+}
+div.dialog-control {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	padding:10px;
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+div.dialog-control .keywords {
+	width: 70%;
+	float: left;
+}
+div.dialog-control .btn-send {
+	width: 30%;
+	float: left;
+}
+div.notice {
+	padding:3px 10px;
+	font-size: 12px;
+	color: #ddd;
+	text-align: center;
+}
